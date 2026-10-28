@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Toolza: ferramentas online gratuitas para estudar, calcular e facilitar tarefas do dia a dia.">
+<meta name="theme-color" content="#0b1020">
+<title>Toolza — Ferramentas online grátis</title>
+<style>
+:root{--bg:#0a1020;--surface:#111a2e;--surface2:#17233d;--line:#263654;--text:#f4f7ff;--muted:#aab8d3;--purple:#a7a5ff;--cyan:#7de4dc;--good:#9be7bd;--shadow:0 18px 55px #0003}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 85% -10%,#34346b 0,transparent 35%),radial-gradient(ellipse at -10% 30%,#123b4b 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1120px,calc(100% - 36px));margin:auto}
+header{padding:22px 0;border-bottom:1px solid #ffffff0d}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.45rem;letter-spacing:-.06em}
+.brand-mark{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--cyan));color:#0b1020;font-size:1.2rem;box-shadow:0 8px 24px #8b8aff35}
+.brand span{color:var(--purple)}
+.nav-note{color:var(--muted);font-size:.88rem}
+.hero{padding:64px 0 38px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #a7a5ff40;background:#a7a5ff0e;border-radius:999px;color:#d8d7ff;font-size:.84rem;font-weight:650}
+.pill i{width:7px;height:7px;border-radius:50%;background:var(--cyan);display:inline-block}
+h1{font-size:clamp(2.5rem,7vw,4.7rem);line-height:1.03;letter-spacing:-.07em;margin:20px auto 18px;max-width:850px}
+.gradient{background:linear-gradient(100deg,#c8c5ff 10%,#8ce7de 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:640px;margin:0 auto;color:var(--muted);font-size:1.08rem}
+.search-wrap{max-width:620px;margin:28px auto 0;position:relative}
+.search-wrap span{position:absolute;left:17px;top:13px;color:var(--muted);font-size:1.1rem}
+.search{width:100%;padding:15px 18px 15px 48px;border:1px solid #ffffff20;border-radius:15px;background:#0c1427cc;color:var(--text);outline:none;box-shadow:var(--shadow)}
+.search:focus,input:focus,select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px #a7a5ff20;outline:none}
+.hero-meta{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:.83rem;margin-top:18px}
+.hero-meta span:before{content:"✓";color:var(--good);font-weight:900;margin-right:7px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:35px 0 18px}
+.section-head h2{font-size:1.45rem;letter-spacing:-.04em;margin:0}
+.section-head p{margin:5px 0 0;color:var(--muted);font-size:.92rem}
+.count{color:var(--muted);font-size:.85rem}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.filter{border:1px solid var(--line);border-radius:999px;padding:8px 13px;background:#10182b;color:var(--muted);font-size:.88rem}
+.filter.active,.filter:hover{background:#a7a5ff19;border-color:#a7a5ff75;color:#e3e2ff}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.tool-card{position:relative;min-height:180px;padding:19px;text-align:left;border:1px solid var(--line);border-radius:18px;background:linear-gradient(150deg,#17233d,#11192b);color:var(--text);transition:transform .18s,border-color .18s,background .18s;display:flex;flex-direction:column;align-items:flex-start;box-shadow:0 10px 30px #0000000d}
+.tool-card:hover{transform:translateY(-3px);border-color:#a7a5ff80;background:linear-gradient(150deg,#202d4b,#141e32)}
+.tool-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:1.35rem;background:#a7a5ff18;border:1px solid #a7a5ff26;margin-bottom:14px}
+.tool-card h3{font-size:1rem;margin:0 0 5px;letter-spacing:-.02em}
+.tool-card p{font-size:.84rem;color:var(--muted);margin:0}
+.tool-card .arrow{position:absolute;right:16px;top:19px;color:#7e8baa;font-size:1.1rem}
+.empty{display:none;padding:28px;border:1px dashed var(--line);border-radius:16px;color:var(--muted);text-align:center}
+footer{border-top:1px solid #ffffff12;margin-top:64px;padding:28px 0 38px;color:var(--muted);font-size:.85rem}
+.footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.footer-brand{font-weight:850;color:var(--text);font-size:1rem}
+.note{max-width:600px;margin-top:8px}
+.modal-backdrop{position:fixed;inset:0;z-index:10;background:#050914c9;backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.open{display:flex}
+.modal{width:min(590px,100%);max-height:min(85vh,800px);overflow:auto;background:#111a2e;border:1px solid #344260;border-radius:22px;box-shadow:0 30px 100px #0008}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:23px 24px 16px;border-bottom:1px solid #ffffff12}
+.modal-head h2{margin:0;font-size:1.3rem;letter-spacing:-.04em}
+.modal-head p{margin:5px 0 0;color:var(--muted);font-size:.9rem}
+.close{border:1px solid var(--line);background:#1a2640;color:var(--text);width:36px;height:36px;border-radius:11px;font-size:1.2rem}
+.modal-body{padding:22px 24px 25px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.field{min-width:0}.field.full{grid-column:1/-1}
+label{display:block;color:#dce4f8;font-size:.88rem;margin:0 0 6px}
+input,select,textarea{width:100%;padding:11px 12px;border-radius:11px;background:#0a1224;border:1px solid #354360;color:var(--text)}
+textarea{resize:vertical;min-height:125px}
+.action{border:0;border-radius:11px;padding:12px 16px;background:linear-gradient(100deg,var(--purple),var(--cyan));color:#0a1020;font-weight:850;width:100%;margin-top:17px}
+.action.secondary{background:#202c46;color:var(--text);border:1px solid #354360}
+.result{margin-top:15px;background:#0a1224;border:1px solid #2b3a58;border-radius:13px;padding:14px;color:#dbe4fb;overflow-wrap:anywhere;min-height:49px}
+.result strong{color:#fff;font-size:1.15rem}
+.hint{color:var(--muted);font-size:.82rem;margin-top:10px}
+.result.success{border-color:#4e9274}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.wrap{width:min(100% - 26px,1120px)}.hero{padding:46px 0 25px}.grid{gap:10px}.tool-card{padding:15px;min-height:174px}.tool-icon{width:40px;height:40px}.nav-note{display:none}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.modal-head,.modal-body{padding-left:18px;padding-right:18px}.hero-meta{gap:10px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav"><a class="brand" href="#" aria-label="Toolza início"><span class="brand-mark">✦</span>tool<span>za</span></a><div class="nav-note">Ferramentas simples para o seu dia a dia</div></div></header>
+<main class="wrap">
+<section class="hero">
+<div class="pill"><i></i> 100% grátis para começar</div>
+<h1>Resolva pequenas tarefas.<br><span class="gradient">Ganhe tempo.</span></h1>
+<p>Ferramentas online rápidas, simples e sem cadastro. Escolha uma e comece a usar direto no navegador.</p>
+<div class="search-wrap"><span>⌕</span><input class="search" id="search" type="search" placeholder="Buscar uma ferramenta..." aria-label="Buscar ferramenta"></div>
+<div class="hero-meta"><span>Sem cadastro</span><span>Funciona no navegador</span><span>Grátis para usar</span></div>
+</section>
+<section>
+<div class="section-head"><div><h2>Explore as ferramentas</h2><p>Escolha uma ferramenta para abrir.</p></div><div class="count" id="count">8 ferramentas</div></div>
+<div class="filters" aria-label="Filtrar ferramentas">
+<button class="filter active" data-filter="todas">Todas</button><button class="filter" data-filter="estudos">Estudos</button><button class="filter" data-filter="matematica">Matemática</button><button class="filter" data-filter="texto">Texto</button><button class="filter" data-filter="utilidades">Utilidades</button>
+</div>
+<div class="grid" id="grid">
+<button class="tool-card" data-tool="media" data-category="estudos matematica" data-search="média escolar notas escola calcular prova">
+<span class="arrow">↗</span><span class="tool-icon">🎓</span><h3>Calculadora de média</h3><p>Calcule a média das suas notas escolares.</p></button>
+<button class="tool-card" data-tool="porcentagem" data-category="matematica" data-search="porcentagem percentagem calcular valor">
+<span class="arrow">↗</span><span class="tool-icon">％</span><h3>Porcentagem</h3><p>Descubra quanto representa uma porcentagem.</p></button>
+<button class="tool-card" data-tool="desconto" data-category="matematica utilidades" data-search="desconto promoção preço oferta economia">
+<span class="arrow">↗</span><span class="tool-icon">🏷️</span><h3>Calculadora de desconto</h3><p>Veja o preço final depois do desconto.</p></button>
+<button class="tool-card" data-tool="regra" data-category="estudos matematica" data-search="regra de três proporção matemática escola">
+<span class="arrow">↗</span><span class="tool-icon">🧮</span><h3>Regra de três</h3><p>Resolva proporções simples em segundos.</p></button>
+<button class="tool-card" data-tool="texto" data-category="texto" data-search="contador palavras caracteres letras texto">
+<span class="arrow">↗</span><span class="tool-icon">🔤</span><h3>Contador de texto</h3><p>Conte palavras, caracteres e linhas.</p></button>
+<button class="tool-card" data-tool="caixa" data-category="texto" data-search="maiúsculas minúsculas texto converter letras">
+<span class="arrow">↗</span><span class="tool-icon">Aa</span><h3>Formatador de texto</h3><p>Transforme texto em maiúsculas ou minúsculas.</p></button>
+<button class="tool-card" data-tool="senha" data-category="utilidades" data-search="gerador senha aleatória segura password">
+<span class="arrow">↗</span><span class="tool-icon">🔐</span><h3>Gerador de senhas</h3><p>Gere uma senha aleatória no seu navegador.</p></button>
+<button class="tool-card" data-tool="unidades" data-category="utilidades matematica" data-search="conversor unidades comprimento peso temperatura cm km kg">
+<span class="arrow">↗</span><span class="tool-icon">📏</span><h3>Conversor de unidades</h3><p>Converta comprimento, massa e temperatura.</p></button>
+</div>
+<div class="empty" id="empty">Nenhuma ferramenta encontrada. Tente outra palavra.</div>
+</section>
+</main>
+<footer><div class="wrap footer-row"><div><div class="footer-brand">✦ toolza</div><div class="note">Ferramentas gratuitas para facilitar tarefas do dia a dia. Esta é uma versão inicial do projeto.</div></div><div>Feito para ser simples. © <span id="year"></span> Toolza</div></div></footer>
+<div class="modal-backdrop" id="backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="modal"><div class="modal-head"><div><h2 id="modalTitle">Ferramenta</h2><p id="modalDesc">Use a ferramenta abaixo.</p></div><button class="close" id="close" aria-label="Fechar">×</button></div><div class="modal-body" id="modalBody"></div></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const toolInfo={
+media:["Calculadora de média","Informe suas notas de 0 a 10. A média é calculada com as notas preenchidas."],
+porcentagem:["Calculadora de porcentagem","Calcule uma porcentagem de um valor."],
+desconto:["Calculadora de desconto","Descubra quanto você economiza e qual será o preço final."],
+regra:["Regra de três","Se A corresponde a B, então C corresponde a X."],
+texto:["Contador de texto","Digite ou cole um texto para contar palavras e caracteres."],
+caixa:["Formatador de texto","Converta seu texto para maiúsculas, minúsculas ou formato de título."],
+senha:["Gerador de senhas","Gere uma senha aleatória localmente, sem enviar nada para um servidor."],
+unidades:["Conversor de unidades","Converta medidas de comprimento, massa e temperatura."]
+};
+function field(id,label,placeholder="",type="number",extra=""){return `<div class="field"><label for="${id}">${label}</label><input id="${id}" type="${type}" placeholder="${placeholder}" ${extra}></div>`}
+function result(id="result"){return `<div class="result" id="${id}" aria-live="polite">O resultado aparecerá aqui.</div>`}
+function selectField(id,label,opts){return `<div class="field"><label for="${id}">${label}</label><select id="${id}">${opts.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join("")}</select></div>`}
+function formFor(tool){
+if(tool==="media")return `<div class="fields">${field("n1","Nota 1","Ex.: 7","number",'min="0" max="10" step="any"')}${field("n2","Nota 2","Ex.: 8","number",'min="0" max="10" step="any"')}${field("n3","Nota 3 (opcional)","Ex.: 6","number",'min="0" max="10" step="any"')}${field("n4","Nota 4 (opcional)","Ex.: 9","number",'min="0" max="10" step="any"')}${field("meta","Média desejada","6","number",'min="0" max="10" step="any" value="6"')}</div><button class="action" data-run="media">Calcular média</button>${result()}`;
+if(tool==="porcentagem")return `<div class="fields">${field("valor","Valor","Ex.: 250")}${field("porc","Porcentagem (%)","Ex.: 15")}</div><button class="action" data-run="porcentagem">Calcular</button>${result()}`;
+if(tool==="desconto")return `<div class="fields">${field("preco","Preço original (R$)","Ex.: 120")}${field("desc","Desconto (%)","Ex.: 20")}</div><button class="action" data-run="desconto">Calcular preço final</button>${result()}`;
+if(tool==="regra")return `<div class="fields">${field("ra","A","Ex.: 2")}${field("rb","B","Ex.: 8")}${field("rc","C","Ex.: 5")}</div><button class="action" data-run="regra">Calcular X</button>${result()}`;
+if(tool==="texto")return `<div class="field full"><label for="textoInput">Seu texto</label><textarea id="textoInput" placeholder="Digite ou cole seu texto aqui..."></textarea></div><div class="result" id="result">Caracteres: 0 · Palavras: 0 · Linhas: 0</div><button class="action secondary" data-run="copiarTexto">Copiar texto</button>`;
+if(tool==="caixa")return `<div class="field full"><label for="caixaInput">Seu texto</label><textarea id="caixaInput" placeholder="Digite seu texto aqui..."></textarea></div><div class="fields">${selectField("modoTexto","Transformar em", [["upper","MAIÚSCULAS"],["lower","minúsculas"],["title","Formato de título"]])}</div><button class="action" data-run="converterTexto">Transformar texto</button><div class="result" id="result">O texto transformado aparecerá aqui.</div><button class="action secondary" data-run="copiarResultado">Copiar resultado</button>`;
+if(tool==="senha")return `<div class="fields">${field("tamSenha","Tamanho da senha","16","number",'min="6" max="64" value="16"')}${selectField("tipoSenha","Tipo de caracteres", [["all","Letras, números e símbolos"],["lettersnums","Letras e números"],["letters","Somente letras"]])}</div><button class="action" data-run="senha">Gerar senha</button><div class="result" id="result">Sua senha aparecerá aqui.</div><button class="action secondary" data-run="copiarResultado">Copiar senha</button><p class="hint">Dica: use uma senha diferente para cada conta. Não compartilhe suas senhas.</p>`;
+if(tool==="unidades")return `<div class="fields">${selectField("tipoUnidade","Tipo de medida", [["length","Comprimento"],["mass","Massa"],["temp","Temperatura"]])}${field("valorUnidade","Valor","Ex.: 12")}${selectField("deUnidade","De", [["m","Metros"],["km","Quilômetros"],["cm","Centímetros"],["mm","Milímetros"]])}${selectField("paraUnidade","Para", [["km","Quilômetros"],["m","Metros"],["cm","Centímetros"],["mm","Milímetros"]])}</div><button class="action" data-run="unidades">Converter</button>${result()}<p class="hint">Para temperatura, escolha Celsius, Fahrenheit ou Kelvin.</p>`;
+return "";
+}
+function openTool(tool){$("modalTitle").textContent=toolInfo[tool][0];$("modalDesc").textContent=toolInfo[tool][1];$("modalBody").innerHTML=formFor(tool);$("backdrop").classList.add("open");document.body.style.overflow="hidden";if(tool==="texto")$("textoInput").addEventListener("input",updateCount);if(tool==="unidades")$("tipoUnidade").addEventListener("change",updateUnitOptions);if(tool==="unidades")updateUnitOptions();const first=$("modalBody").querySelector("input,textarea,select");if(first)first.focus();}
+function closeModal(){$("backdrop").classList.remove("open");document.body.style.overflow="";}
+$("grid").addEventListener("click",e=>{const card=e.target.closest("[data-tool]");if(card)openTool(card.dataset.tool)});
+$("close").addEventListener("click",closeModal);$("backdrop").addEventListener("click",e=>{if(e.target===$("backdrop"))closeModal()});document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");filterTools()}));
+$("search").addEventListener("input",filterTools);
+function filterTools(){const q=$("search").value.toLocaleLowerCase("pt-BR").trim();const cat=document.querySelector(".filter.active").dataset.filter;let n=0;document.querySelectorAll(".tool-card").forEach(c=>{const matchQ=!q||(c.dataset.search+" "+c.innerText).toLocaleLowerCase("pt-BR").includes(q);const matchC=cat==="todas"||c.dataset.category.split(" ").includes(cat);const show=matchQ&&matchC;c.style.display=show?"flex":"none";if(show)n++});$("count").textContent=n+" ferramenta"+(n===1?"":"s");$("empty").style.display=n?"none":"block";}
+function val(id){const e=$(id);if(!e)return null;const s=e.value.trim();return s===""?null:Number(s)}
+function fmt(n){return Number(n).toLocaleString("pt-BR",{maximumFractionDigits:4})}
+function show(html,success=false){$("result").innerHTML=html;$("result").classList.toggle("success",success)}
+function updateCount(){const t=$("textoInput").value;const words=t.trim()?t.trim().split(/\s+/u).length:0;const lines=t.length?t.split(/\r\n|\r|\n/).length:0;$("result").innerHTML=`Caracteres: <strong>${t.length}</strong> · Sem espaços: <strong>${t.replace(/\s/g,"").length}</strong> · Palavras: <strong>${words}</strong> · Linhas: <strong>${lines}</strong>`}
+function updateUnitOptions(){const type=$("tipoUnidade").value;let opts;if(type==="length")opts=[["m","Metros"],["km","Quilômetros"],["cm","Centímetros"],["mm","Milímetros"]];else if(type==="mass")opts=[["kg","Quilogramas"],["g","Gramas"],["mg","Miligramas"],["lb","Libras"]];else opts=[["C","Celsius"],["F","Fahrenheit"],["K","Kelvin"]];["deUnidade","paraUnidade"].forEach((id,i)=>{const s=$(id),old=s.value;s.innerHTML=opts.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join("");s.value=opts.some(o=>o[0]===old)?old:opts[i?1:0]})}
+$("modalBody").addEventListener("click",async e=>{const b=e.target.closest("[data-run]");if(!b)return;const run=b.dataset.run;
+if(run==="media"){const ns=["n1","n2","n3","n4"].map(val).filter(v=>v!==null),meta=val("meta");if(!ns.length||ns.some(v=>v<0||v>10)||meta===null||meta<0||meta>10){show("Digite pelo menos uma nota entre 0 e 10 e uma média desejada válida.");return}const m=ns.reduce((a,v)=>a+v,0)/ns.length;show(`Sua média é <strong>${fmt(m)}</strong>.<br>${m>=meta?"Você atingiu a média desejada!":`Sua média desejada é ${fmt(meta)}.`}<div class="hint">Cálculo com ${ns.length} nota(s).</div>`,true)}
+if(run==="porcentagem"){const v=val("valor"),p=val("porc");if(v===null||p===null){show("Preencha o valor e a porcentagem.");return}show(`<strong>${fmt(v*p/100)}</strong> é ${fmt(p)}% de ${fmt(v)}.`,true)}
+if(run==="desconto"){const p=val("preco"),d=val("desc");if(p===null||d===null||p<0||d<0||d>100){show("Informe um preço válido e um desconto entre 0% e 100%.");return}show(`Você economiza <strong>${fmt(p*d/100)}</strong>.<br>Preço final: <strong>R$ ${fmt(p*(1-d/100))}</strong>.`,true)}
+if(run==="regra"){const a=val("ra"),bb=val("rb"),c=val("rc");if(a===null||bb===null||c===null||a===0){show("Preencha A, B e C. A não pode ser zero.");return}show(`X = <strong>${fmt(bb*c/a)}</strong>`,true)}
+if(run==="copiarTexto"){await copyText($("textoInput").value)}
+if(run==="converterTexto"){const t=$("caixaInput").value,mode=$("modoTexto").value;let out=mode==="upper"?t.toLocaleUpperCase("pt-BR"):mode==="lower"?t.toLocaleLowerCase("pt-BR"):t.toLocaleLowerCase("pt-BR").replace(/(^|[.!?]\s+)(\p{L})/gu,(m,a,c)=>a+c.toLocaleUpperCase("pt-BR"));show(escapeHtml(out),true);$("result").dataset.copy=out}
+if(run==="senha"){let n=val("tamSenha");if(n===null||!Number.isInteger(n)||n<6||n>64){show("Escolha um tamanho inteiro entre 6 e 64.");return}const type=$("tipoSenha").value;let chars=type==="letters"?"ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz":type==="lettersnums"?"ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789":"ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%*-_+";const arr=new Uint32Array(n);crypto.getRandomValues(arr);const s=Array.from(arr,x=>chars[x%chars.length]).join("");show(`<strong style="font-family:ui-monospace,monospace;word-break:break-all">${escapeHtml(s)}</strong>`,true);$("result").dataset.copy=s}
+if(run==="copiarResultado"){const t=$("result").dataset.copy||$("result").innerText;await copyText(t)}
+if(run==="unidades"){const v=val("valorUnidade"),type=$("tipoUnidade").value,from=$("deUnidade").value,to=$("paraUnidade").value;if(v===null){show("Digite um valor para converter.");return}let x;if(type==="length"){const f={m:1,km:1000,cm:.01,mm:.001};x=v*f[from]/f[to]}else if(type==="mass"){const f={kg:1,g:.001,mg:.000001,lb:.45359237};x=v*f[from]/f[to]}else{const c=from==="C"?v:from==="F"?(v-32)*5/9:v-273.15;x=to==="C"?c:to==="F"?c*9/5+32:c+273.15}show(`<strong>${fmt(x)}</strong> ${to==="km"?"km":to==="m"?"m":to==="cm"?"cm":to==="mm"?"mm":to==="kg"?"kg":to==="g"?"g":to==="mg"?"mg":to==="lb"?"lb":to==="C"?"°C":to==="F"?"°F":"K"}`,true)}
+});
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+async function copyText(t){try{await navigator.clipboard.writeText(t);const old=$("result").innerHTML;$("result").innerHTML="Copiado!";setTimeout(()=>{$("result").innerHTML=old},1200)}catch(e){show("Não foi possível copiar automaticamente. Selecione o texto e copie manualmente.")}}
+$("year").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
